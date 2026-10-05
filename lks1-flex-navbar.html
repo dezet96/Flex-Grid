@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LKS 1 - Flex Navbar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="lks1">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">LKS 1 — Flex Navbar</div>
+      <div class="nav">
+        <a href="index.html">← Beranda</a>
+        <a class="active" href="lks1-flex-navbar.html">LKS 1</a>
+        <a href="lks2-flex-wrap.html">LKS 2</a>
+        <a href="lks3-flex-layout.html">LKS 3</a>
+        <a href="lks4-grid-gallery.html">LKS 4</a>
+        <a href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Flex: Navbar 3 Bagian (kiri–tengah–kanan)</h1>
+    <p>Tujuan: memahami efek <b>justify-content</b>, <b>align-items</b>, dan eksperimen “menengahkan menu” dengan <b>flex: 1</b>.</p>
+
+    <div class="panel">
+      <h2>Editor & Preview</h2>
+      <p class="ket">Eksperimen dilakukan dengan mengubah kode di editor, lalu klik <b>Run</b> dan amati preview.</p>
+
+      <div class="editor-wrap">
+        <div>
+          <textarea id="editor" class="code" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="btnRun" class="primary">Run</button>
+            <button id="btnReset">Reset Kode</button>
+            <button id="btnCopy">Copy Kode</button>
+          </div>
+        </div>
+        <div>
+          <iframe id="preview" class="preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Eksperimen (jelas ubah/tempe l di mana)</h2>
+      <ol>
+        <li>
+          <b>Ubah justify-content</b><br>
+          Lokasi: di CSS pada rule <code>header { ... }</code><br>
+          Ubah baris: <code>justify-content: space-between;</code> menjadi <code>justify-content: center;</code>
+        </li>
+        <li>
+          <b>Ubah align-items</b><br>
+          Lokasi: masih di rule <code>header { ... }</code><br>
+          Ubah baris: <code>align-items: center;</code> menjadi <code>align-items: flex-start;</code>
+        </li>
+        <li>
+          <b>Tempel rule nav agar menu “benar-benar” di tengah</b><br>
+          Lokasi tempel: di dalam <code>&lt;style&gt;</code>, tempel <u>setelah</u> blok <code>header { ... }</code> (setelah kurung kurawal penutup <code>}</code>)<br>
+          Tempel: <code>nav { flex: 1; display: flex; justify-content: center; }</code>
+        </li>
+      </ol>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Tabel Pengamatan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:130px;">Eksperimen</th>
+            <th>Perubahan</th>
+            <th>Hasil yang terlihat</th>
+            <th>Kesimpulan fungsi property</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td><input class="answer" data-save="e1_change" placeholder="contoh: space-between → center" /></td>
+            <td><textarea class="answer" data-save="e1_result" placeholder="tulis pengamatanmu..."></textarea></td>
+            <td><textarea class="answer" data-save="e1_conclusion" placeholder="kesimpulan singkat..."></textarea></td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td><input class="answer" data-save="e2_change" placeholder="contoh: center → flex-start" /></td>
+            <td><textarea class="answer" data-save="e2_result" placeholder="tulis pengamatanmu..."></textarea></td>
+            <td><textarea class="answer" data-save="e2_conclusion" placeholder="kesimpulan singkat..."></textarea></td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td><input class="answer" data-save="e3_change" placeholder="contoh: tambah rule nav flex:1" /></td>
+            <td><textarea class="answer" data-save="e3_result" placeholder="tulis pengamatanmu..."></textarea></td>
+            <td><textarea class="answer" data-save="e3_conclusion" placeholder="kesimpulan singkat..."></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Pertanyaan Konsep</h2>
+      <p class="ket">Jawab berdasarkan pengamatanmu.</p>
+      <p>1) <b>justify-content</b> mengatur posisi pada arah apa (horizontal/vertikal) saat default <code>flex-direction: row</code>?</p>
+      <textarea class="answer" data-save="q1"></textarea>
+
+      <p>2) <b>align-items</b> mengatur posisi pada arah apa (horizontal/vertikal) saat default <code>flex-direction: row</code>?</p>
+      <textarea class="answer" data-save="q2"></textarea>
+
+      <p>3) Kenapa <code>nav { flex: 1; }</code> membantu menu jadi lebih “tengah”?</p>
+      <textarea class="answer" data-save="q3"></textarea>
+
+      <div class="actions">
+        <button id="btnResetAnswers" class="danger">Reset Jawaban (halaman ini)</button>
+      </div>
+    </div>
+
+    <!-- starter code (untuk Reset) -->
+    <template id="starter">
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flex Navbar</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Arial; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .brand { font-weight: 700; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+    nav a { text-decoration: none; color: #111827; }
+    .actions { display: flex; gap: 10px; }
+    .btn {
+      border: 1px solid #111827;
+      background: #111827;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .btn.secondary { background: transparent; color: #111827; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">MySchool</div>
+
+    <nav>
+      <ul>
+        <li><a href="#">Beranda</a></li>
+        <li><a href="#">Materi</a></li>
+        <li><a href="#">Latihan</a></li>
+        <li><a href="#">Kontak</a></li>
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <button class="btn secondary">Masuk</button>
+      <button class="btn">Daftar</button>
+    </div>
+  </header>
+</body>
+</html>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

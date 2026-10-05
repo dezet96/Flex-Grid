@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LKS 5 - Grid Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="lks5">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">LKS 5 — Grid Dashboard + Flex</div>
+      <div class="nav">
+        <a href="index.html">← Beranda</a>
+        <a href="lks1-flex-navbar.html">LKS 1</a>
+        <a href="lks2-flex-wrap.html">LKS 2</a>
+        <a href="lks3-flex-layout.html">LKS 3</a>
+        <a href="lks4-grid-gallery.html">LKS 4</a>
+        <a class="active" href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Grid + Flex: Dashboard Sederhana</h1>
+    <p>Tujuan: membedakan Grid untuk layout halaman (besar) vs Flex untuk isi komponen (kecil).</p>
+
+    <div class="panel">
+      <h2>Editor & Preview</h2>
+      <div class="editor-wrap">
+        <div>
+          <textarea id="editor" class="code" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="btnRun" class="primary">Run</button>
+            <button id="btnReset">Reset Kode</button>
+            <button id="btnCopy">Copy Kode</button>
+          </div>
+        </div>
+        <div>
+          <iframe id="preview" class="preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Eksperimen</h2>
+      <ol>
+        <li>
+          <b>Ubah lebar sidebar</b><br>
+          Lokasi: rule <code>.page { ... }</code><br>
+          Ubah <code>grid-template-columns: 260px 1fr;</code> menjadi <code>200px 1fr</code>.
+        </li>
+        <li>
+          <b>Ubah jumlah kolom card</b><br>
+          Lokasi: rule <code>.cards { ... }</code><br>
+          Ubah <code>repeat(3, 1fr)</code> menjadi <code>repeat(2, 1fr)</code>.
+        </li>
+        <li>
+          <b>Buat card pertama melebar 2 kolom</b><br>
+          Lokasi tempel: tempel di dalam <code>&lt;style&gt;</code>, setelah rule <code>.card { ... }</code> (atau di paling bawah).<br>
+          Tempel: <code>.card:first-child { grid-column: span 2; }</code>
+        </li>
+        <li>
+          <b>Ubah breakpoint</b><br>
+          Lokasi: <code>@media (max-width: 900px) { ... }</code><br>
+          Ubah <code>900px</code> menjadi <code>700px</code>, lalu kecilkan layar.
+        </li>
+      </ol>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Tabel Pengamatan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:130px;">Eksperimen</th>
+            <th>Perubahan</th>
+            <th>Hasil yang terlihat</th>
+            <th>Kesimpulan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td><input class="answer" data-save="e1_change" /></td>
+            <td><textarea class="answer" data-save="e1_result"></textarea></td>
+            <td><textarea class="answer" data-save="e1_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td><input class="answer" data-save="e2_change" /></td>
+            <td><textarea class="answer" data-save="e2_result"></textarea></td>
+            <td><textarea class="answer" data-save="e2_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td><input class="answer" data-save="e3_change" /></td>
+            <td><textarea class="answer" data-save="e3_result"></textarea></td>
+            <td><textarea class="answer" data-save="e3_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>4</b></td>
+            <td><input class="answer" data-save="e4_change" /></td>
+            <td><textarea class="answer" data-save="e4_result"></textarea></td>
+            <td><textarea class="answer" data-save="e4_conclusion"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Pertanyaan Konsep</h2>
+      <p>1) Bagian mana yang diatur oleh <b>Grid</b> (layout besar) dan mana yang diatur oleh <b>Flex</b> (isi card)?</p>
+      <textarea class="answer" data-save="q1"></textarea>
+
+      <p>2) Kenapa (menurut pengamatanmu) layout halaman lebih mudah pakai Grid daripada Flex?</p>
+      <textarea class="answer" data-save="q2"></textarea>
+
+      <div class="actions">
+        <button id="btnResetAnswers" class="danger">Reset Jawaban (halaman ini)</button>
+      </div>
+    </div>
+
+    <template id="starter">
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grid Dashboard</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Arial; background: #f3f4f6; }
+    .page {
+      display: grid;
+      gap: 14px;
+      padding: 14px;
+      grid-template-columns: 260px 1fr;
+      grid-template-areas:
+        "header header"
+        "sidebar content"
+        "footer footer";
+    }
+    header { grid-area: header; padding: 14px; background: white; border-radius: 14px; }
+    aside  { grid-area: sidebar; padding: 14px; background: white; border-radius: 14px; }
+    main   { grid-area: content; }
+    footer { grid-area: footer; padding: 14px; background: white; border-radius: 14px; }
+
+    .cards {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid #e5e7eb;
+
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge {
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #111827;
+      color: white;
+    }
+    .chart {
+      height: 90px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fde68a, #fca5a5);
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "header"
+          "sidebar"
+          "content"
+          "footer";
+      }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header><b>Dashboard</b> — Ringkasan</header>
+
+    <aside>
+      <b>Menu</b>
+      <ul>
+        <li>Overview</li>
+        <li>Siswa</li>
+        <li>Tugas</li>
+      </ul>
+    </aside>
+
+    <main>
+      <div class="cards">
+        <section class="card">
+          <div class="card-head">
+            <b>Pengunjung</b><span class="badge">+12%</span>
+          </div>
+          <div class="chart"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <b>Tugas Masuk</b><span class="badge">24</span>
+          </div>
+          <div class="chart"></div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <b>Nilai Rata-rata</b><span class="badge">82</span>
+          </div>
+          <div class="chart"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer>Footer</footer>
+  </div>
+</body>
+</html>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

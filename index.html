@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Media Pembelajaran — Flexbox & CSS Grid</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ============ STYLE KHUSUS HALAMAN BERANDA ============ */
+
+    body{
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* --- background dekoratif (blob) --- */
+    .blob{
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .35;
+      z-index: 0;
+      pointer-events: none;
+      animation: float 14s ease-in-out infinite;
+    }
+    .blob.b1{
+      width: 420px; height: 420px;
+      background: #3b82f6;
+      top: -140px; left: -120px;
+    }
+    .blob.b2{
+      width: 380px; height: 380px;
+      background: #10b981;
+      top: 240px; right: -140px;
+      animation-delay: -4s;
+    }
+    .blob.b3{
+      width: 320px; height: 320px;
+      background: #a855f7;
+      bottom: -140px; left: 35%;
+      animation-delay: -8s;
+    }
+    @keyframes float{
+      0%,100%{ transform: translateY(0) scale(1); }
+      50%{ transform: translateY(-26px) scale(1.06); }
+    }
+
+    .container{ position: relative; z-index: 1; }
+
+    /* --- HERO --- */
+    .hero{
+      margin-top: 18px;
+      border-radius: 22px;
+      padding: 34px 28px;
+      background:
+        radial-gradient(1000px 300px at 10% -10%, rgba(96,165,250,.25), transparent 60%),
+        radial-gradient(800px 300px at 90% 0%, rgba(52,211,153,.18), transparent 60%),
+        linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size: 12.5px;
+      font-weight: 700;
+      letter-spacing:.3px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      color:#bfdbfe;
+      background: rgba(96,165,250,.14);
+      border: 1px solid rgba(96,165,250,.35);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background:#34d399;
+      box-shadow: 0 0 0 4px rgba(52,211,153,.18);
+    }
+
+    .hero h1{
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.15;
+      margin: 16px 0 10px;
+      font-weight: 850;
+      background: linear-gradient(90deg, #ffffff, #bfdbfe 45%, #a7f3d0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p.lead{
+      max-width: 720px;
+      font-size: 15.5px;
+      color: #cbd5e1;
+      line-height: 1.65;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 750;
+      font-size: 14.5px;
+      border: 1px solid transparent;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .cta.primary{
+      background: linear-gradient(135deg, #3b82f6, #22d3ee);
+      color: #06121f;
+      box-shadow: 0 12px 28px rgba(59,130,246,.35);
+    }
+    .cta.ghost{
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.16);
+      color:#e5e7eb;
+    }
+    .cta:hover{ transform: translateY(-3px); text-decoration: none; }
+    .cta.primary:hover{ box-shadow: 0 18px 36px rgba(59,130,246,.45); }
+
+    /* --- STAT MINI --- */
+    .stats{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .stat{
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(6px);
+    }
+    .stat b{ display:block; font-size: 22px; }
+    .stat span{ font-size: 12.5px; color:#94a3b8; }
+
+    /* --- SECTION TITLE --- */
+    .section-head{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      margin: 34px 0 6px;
+      flex-wrap: wrap;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 20px;
+    }
+    .section-head .hint{
+      font-size: 13px;
+      color:#94a3b8;
+    }
+
+    /* --- KARTU LKS --- */
+    .lks-grid{
+      display:grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      margin-top: 16px;
+    }
+
+    .lks{
+      position: relative;
+      display:block;
+      border-radius: 20px;
+      padding: 1px; /* ruang untuk border gradient */
+      background: linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.04));
+      transition: transform .2s ease, box-shadow .2s ease;
+      text-decoration:none;
+    }
+    .lks:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px rgba(0,0,0,.45);
+      text-decoration:none;
+    }
+    .lks-inner{
+      border-radius: 19px;
+      height: 100%;
+      padding: 18px;
+      background: linear-gradient(170deg, rgba(17,24,39,.92), rgba(15,23,42,.92));
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow:hidden;
+    }
+    .lks-inner::after{
+      content:"";
+      position:absolute;
+      inset: -40% -60% auto auto;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(96,165,250,.22), transparent 65%);
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .lks:hover .lks-inner::after{ opacity: 1; }
+
+    .lks-top{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .icon{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      font-size: 19px;
+      font-weight: 800;
+      color:#06121f;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    .icon.flex{ background: linear-gradient(135deg,#60a5fa,#22d3ee); }
+    .icon.grid{ background: linear-gradient(135deg,#34d399,#a3e635); }
+    .icon.mix{  background: linear-gradient(135deg,#f59e0b,#f472b6); }
+
+    .tag{
+      font-size: 11.5px;
+      font-weight: 750;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color:#cbd5e1;
+      white-space: nowrap;
+    }
+
+    .lks h3{
+      margin: 4px 0 0;
+      font-size: 16.5px;
+      color:#f1f5f9;
+    }
+    .lks p{
+      margin: 0;
+      font-size: 13.5px;
+      color:#94a3b8;
+      line-height: 1.55;
+    }
+
+    .lks-foot{
+      margin-top: auto;
+      padding-top: 12px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 13px;
+      color:#cbd5e1;
+      font-weight: 700;
+    }
+    .status{
+      font-size: 11.5px;
+      font-weight: 750;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,.3);
+      color:#94a3b8;
+      background: rgba(148,163,184,.08);
+    }
+    .status.done{
+      color:#86efac;
+      border-color: rgba(34,197,94,.4);
+      background: rgba(34,197,94,.12);
+    }
+    .arrow{ transition: transform .2s ease; }
+    .lks:hover .arrow{ transform: translateX(5px); }
+
+    /* --- ALUR BELAJAR --- */
+    .steps{
+      display:grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      margin-top: 16px;
+    }
+    .step{
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(170deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(6px);
+    }
+    .step .num{
+      width: 30px; height: 30px;
+      border-radius: 10px;
+      display:grid; place-items:center;
+      font-weight: 850;
+      font-size: 14px;
+      color:#06121f;
+      background: linear-gradient(135deg,#93c5fd,#86efac);
+      margin-bottom: 10px;
+    }
+    .step b{ display:block; margin-bottom: 4px; font-size: 14.5px; }
+    .step span{ font-size: 13px; color:#94a3b8; line-height:1.55; }
+
+    @media (prefers-reduced-motion: reduce){
+      .blob{ animation: none; }
+      .lks, .cta, .arrow{ transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- background dekorasi -->
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">⚡ LKS Flex &amp; Grid</div>
+      <div class="nav">
+        <a class="active" href="index.html">Beranda</a>
+        <a href="lks1-flex-navbar.html">LKS 1</a>
+        <a href="lks2-flex-wrap.html">LKS 2</a>
+        <a href="lks3-flex-layout.html">LKS 3</a>
+        <a href="lks4-grid-gallery.html">LKS 4</a>
+        <a href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <span class="pill"><span class="dot"></span> Media Pembelajaran Interaktif</span>
+
+      <h1>Pahami Konsep Flexbox &amp; CSS Grid<br>Lewat Eksperimen Langsung</h1>
+
+      <p class="lead">
+        Di setiap LKS kamu <b>tidak menulis kode dari nol</b>. Kamu akan <b>mengamati contoh</b>,
+        lalu <b>mengubah satu bagian kode</b> sesuai instruksi, melihat hasilnya di preview,
+        dan menuliskan kesimpulannya sendiri. Dengan begitu konsepnya benar-benar dimengerti —
+        bukan sekadar dihafal.
+      </p>
+
+      <div class="hero-actions">
+        <a class="cta primary" href="lks1-flex-navbar.html">Mulai dari LKS 1 →</a>
+        <a class="cta ghost" href="#daftar-lks">Lihat Semua LKS</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>5</b><span>Studi Kasus</span></div>
+        <div class="stat"><b>16+</b><span>Eksperimen</span></div>
+        <div class="stat"><b>Live</b><span>Editor &amp; Preview</span></div>
+        <div class="stat"><b>Auto</b><span>Jawaban Tersimpan</span></div>
+      </div>
+    </section>
+
+    <!-- ALUR BELAJAR -->
+    <div class="section-head">
+      <h2>Cara Menggunakan</h2>
+      <span class="hint">Ikuti 4 langkah ini di setiap LKS</span>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <b>Amati</b>
+        <span>Baca kode contoh di editor dan lihat hasilnya di preview bawah.</span>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <b>Ubah</b>
+        <span>Ikuti instruksi eksperimen (sudah dijelaskan ubahnya di baris mana).</span>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <b>Bandingkan</b>
+        <span>Klik Run, lalu perhatikan perbedaan sebelum dan sesudah diubah.</span>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <b>Simpulkan</b>
+        <span>Tulis hasil pengamatan di tabel dan jawab pertanyaan konsep.</span>
+      </div>
+    </div>
+
+    <!-- DAFTAR LKS -->
+    <div class="section-head" id="daftar-lks">
+      <h2>Daftar Studi Kasus</h2>
+      <span class="hint">Disarankan dikerjakan berurutan</span>
+    </div>
+
+    <div class="lks-grid">
+
+      <a class="lks" href="lks1-flex-navbar.html" data-key="lks1">
+        <div class="lks-inner">
+          <div class="lks-top">
+            <div class="icon flex">⬌</div>
+            <span class="tag">Flexbox</span>
+          </div>
+          <h3>LKS 1 — Navbar 3 Bagian</h3>
+          <p>Logo kiri, menu tengah, tombol kanan. Fokus: <code>justify-content</code> &amp; <code>align-items</code>.</p>
+          <div class="lks-foot">
+            <span class="status">Belum dikerjakan</span>
+            <span>Buka <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="lks" href="lks2-flex-wrap.html" data-key="lks2">
+        <div class="lks-inner">
+          <div class="lks-top">
+            <div class="icon flex">▦</div>
+            <span class="tag">Flexbox</span>
+          </div>
+          <h3>LKS 2 — Card &amp; Flex Wrap</h3>
+          <p>Kartu produk yang turun baris otomatis. Fokus: <code>flex-wrap</code>, <code>flex-basis</code>, <code>gap</code>.</p>
+          <div class="lks-foot">
+            <span class="status">Belum dikerjakan</span>
+            <span>Buka <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="lks" href="lks3-flex-layout.html" data-key="lks3">
+        <div class="lks-inner">
+          <div class="lks-top">
+            <div class="icon flex">▤</div>
+            <span class="tag">Flexbox</span>
+          </div>
+          <h3>LKS 3 — Layout Halaman</h3>
+          <p>Header–Konten–Footer + sidebar. Fokus: <code>flex: 1</code> dan responsive sederhana.</p>
+          <div class="lks-foot">
+            <span class="status">Belum dikerjakan</span>
+            <span>Buka <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="lks" href="lks4-grid-gallery.html" data-key="lks4">
+        <div class="lks-inner">
+          <div class="lks-top">
+            <div class="icon grid">▩</div>
+            <span class="tag">CSS Grid</span>
+          </div>
+          <h3>LKS 4 — Galeri Responsif</h3>
+          <p>Kolom menyesuaikan otomatis. Fokus: <code>auto-fit</code>, <code>minmax()</code>, dan <code>span</code>.</p>
+          <div class="lks-foot">
+            <span class="status">Belum dikerjakan</span>
+            <span>Buka <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="lks" href="lks5-grid-dashboard.html" data-key="lks5">
+        <div class="lks-inner">
+          <div class="lks-top">
+            <div class="icon mix">◰</div>
+            <span class="tag">Grid + Flex</span>
+          </div>
+          <h3>LKS 5 — Dashboard Sederhana</h3>
+          <p>Grid mengatur layout halaman, Flex merapikan isi card. Fokus: kapan pakai yang mana.</p>
+          <div class="lks-foot">
+            <span class="status">Belum dikerjakan</span>
+            <span>Buka <span class="arrow">→</span></span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="footer-note">
+      Catatan: jawaban dan kode yang kamu ubah tersimpan otomatis di browser ini (localStorage).
+      Jika dibuka di komputer/akun browser lain, data tidak ikut terbawa.
+    </div>
+  </div>
+
+  <script>
+    // Tandai LKS yang sudah dikerjakan (jika ada data tersimpan)
+    document.querySelectorAll(".lks").forEach(card => {
+      const prefix = card.getAttribute("data-key");
+      let found = false;
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefix + "::")) {
+          const v = localStorage.getItem(k);
+          if (v && v.trim() !== "") { found = true; break; }
+        }
+      }
+
+      if (found) {
+        const s = card.querySelector(".status");
+        s.textContent = "✓ Sudah dikerjakan";
+        s.classList.add("done");
+      }
+    });
+  </script>
+</body>
+</html>

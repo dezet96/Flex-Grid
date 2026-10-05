@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LKS 4 - Grid Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="lks4">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">LKS 4 — Grid Galeri Responsif</div>
+      <div class="nav">
+        <a href="index.html">← Beranda</a>
+        <a href="lks1-flex-navbar.html">LKS 1</a>
+        <a href="lks2-flex-wrap.html">LKS 2</a>
+        <a href="lks3-flex-layout.html">LKS 3</a>
+        <a class="active" href="lks4-grid-gallery.html">LKS 4</a>
+        <a href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Grid: Galeri Responsif Otomatis</h1>
+    <p>Tujuan: memahami <code>repeat(auto-fit, minmax(...))</code> dan konsep <code>span</code>.</p>
+
+    <div class="panel">
+      <h2>Editor & Preview</h2>
+      <div class="editor-wrap">
+        <div>
+          <textarea id="editor" class="code" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="btnRun" class="primary">Run</button>
+            <button id="btnReset">Reset Kode</button>
+            <button id="btnCopy">Copy Kode</button>
+          </div>
+        </div>
+        <div>
+          <iframe id="preview" class="preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Eksperimen</h2>
+      <ol>
+        <li>
+          <b>Ubah ukuran minimal kolom</b><br>
+          Lokasi: rule <code>.grid { ... }</code><br>
+          Ubah <code>minmax(160px, 1fr)</code> menjadi <code>minmax(240px, 1fr)</code>.
+        </li>
+        <li>
+          <b>Ubah jarak antar item</b><br>
+          Lokasi: rule <code>.grid { ... }</code><br>
+          Ubah <code>gap: 12px;</code> menjadi <code>24px</code>.
+        </li>
+        <li>
+          <b>Buat item pertama jadi featured</b><br>
+          Lokasi tempel: di dalam <code>&lt;style&gt;</code>, tempel <u>setelah</u> rule <code>.item { ... }</code> (setelah kurung penutup <code>}</code>).<br>
+          Tempel: <code>.item:first-child { grid-column: span 2; grid-row: span 2; }</code>
+        </li>
+      </ol>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Tabel Pengamatan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:130px;">Eksperimen</th>
+            <th>Perubahan</th>
+            <th>Hasil yang terlihat</th>
+            <th>Kesimpulan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td><input class="answer" data-save="e1_change" /></td>
+            <td><textarea class="answer" data-save="e1_result"></textarea></td>
+            <td><textarea class="answer" data-save="e1_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td><input class="answer" data-save="e2_change" /></td>
+            <td><textarea class="answer" data-save="e2_result"></textarea></td>
+            <td><textarea class="answer" data-save="e2_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td><input class="answer" data-save="e3_change" /></td>
+            <td><textarea class="answer" data-save="e3_result"></textarea></td>
+            <td><textarea class="answer" data-save="e3_conclusion"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Pertanyaan Konsep</h2>
+      <p>1) <code>minmax(160px, 1fr)</code> artinya minimal ____ dan maksimal ____.</p>
+      <textarea class="answer" data-save="q1"></textarea>
+
+      <p>2) <code>span 2</code> artinya item menempati ____ kolom/baris.</p>
+      <textarea class="answer" data-save="q2"></textarea>
+
+      <div class="actions">
+        <button id="btnResetAnswers" class="danger">Reset Jawaban (halaman ini)</button>
+      </div>
+    </div>
+
+    <template id="starter">
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grid Gallery</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Arial; background: #0b1220; color: white; }
+    .wrap { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    .item {
+      height: 120px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #60a5fa, #34d399);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Galeri</h2>
+    <div class="grid">
+      <div class="item"></div><div class="item"></div><div class="item"></div><div class="item"></div>
+      <div class="item"></div><div class="item"></div><div class="item"></div><div class="item"></div>
+      <div class="item"></div><div class="item"></div>
+    </div>
+  </div>
+</body>
+</html>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

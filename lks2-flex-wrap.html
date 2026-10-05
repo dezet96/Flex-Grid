@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LKS 2 - Flex Wrap</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="lks2">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">LKS 2 — Flex Wrap Cards</div>
+      <div class="nav">
+        <a href="index.html">← Beranda</a>
+        <a href="lks1-flex-navbar.html">LKS 1</a>
+        <a class="active" href="lks2-flex-wrap.html">LKS 2</a>
+        <a href="lks3-flex-layout.html">LKS 3</a>
+        <a href="lks4-grid-gallery.html">LKS 4</a>
+        <a href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Flex: Card Produk + <code>flex-wrap</code></h1>
+    <p>Tujuan: memahami <b>flex-wrap</b>, efek angka pada <b>flex-basis</b> (bagian <code>flex: 1 1 220px</code>), dan fungsi <b>gap</b>.</p>
+
+    <div class="panel">
+      <h2>Editor & Preview</h2>
+      <p class="ket">Ubah kode lalu klik <b>Run</b>.</p>
+
+      <div class="editor-wrap">
+        <div>
+          <textarea id="editor" class="code" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="btnRun" class="primary">Run</button>
+            <button id="btnReset">Reset Kode</button>
+            <button id="btnCopy">Copy Kode</button>
+          </div>
+        </div>
+        <div>
+          <iframe id="preview" class="preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Eksperimen</h2>
+      <ol>
+        <li>
+          <b>Ubah flex-basis kartu</b><br>
+          Lokasi: di CSS pada rule <code>.card { ... }</code><br>
+          Ubah: <code>flex: 1 1 220px;</code> menjadi <code>flex: 1 1 320px;</code>
+        </li>
+        <li>
+          <b>Matikan wrap</b><br>
+          Lokasi: di rule <code>.list { ... }</code><br>
+          Ubah: <code>flex-wrap: wrap;</code> menjadi <code>flex-wrap: nowrap;</code><br>
+          Catat apa yang terjadi saat layar dipersempit.
+        </li>
+        <li>
+          <b>Ubah gap</b><br>
+          Lokasi: masih di rule <code>.list { ... }</code><br>
+          Ubah <code>gap: 16px;</code> menjadi <code>0px</code> lalu <code>32px</code>.
+        </li>
+      </ol>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Tabel Pengamatan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:130px;">Eksperimen</th>
+            <th>Perubahan</th>
+            <th>Hasil yang terlihat</th>
+            <th>Kesimpulan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td><input class="answer" data-save="e1_change" placeholder="220px → 320px" /></td>
+            <td><textarea class="answer" data-save="e1_result"></textarea></td>
+            <td><textarea class="answer" data-save="e1_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td><input class="answer" data-save="e2_change" placeholder="wrap → nowrap" /></td>
+            <td><textarea class="answer" data-save="e2_result"></textarea></td>
+            <td><textarea class="answer" data-save="e2_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td><input class="answer" data-save="e3_change" placeholder="gap 16 → 0 → 32" /></td>
+            <td><textarea class="answer" data-save="e3_result"></textarea></td>
+            <td><textarea class="answer" data-save="e3_conclusion"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Pertanyaan Konsep</h2>
+      <p>1) Angka <code>220px</code> pada <code>flex: 1 1 220px</code> memengaruhi apa?</p>
+      <textarea class="answer" data-save="q1"></textarea>
+
+      <p>2) Kapan kita butuh <code>flex-wrap: wrap</code>?</p>
+      <textarea class="answer" data-save="q2"></textarea>
+
+      <div class="actions">
+        <button id="btnResetAnswers" class="danger">Reset Jawaban (halaman ini)</button>
+      </div>
+    </div>
+
+    <template id="starter">
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flex Cards</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Arial; background: #f3f4f6; }
+    .wrap { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+    .list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 16px;
+      flex: 1 1 220px;
+    }
+    .thumb {
+      height: 110px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #93c5fd, #a7f3d0);
+      margin-bottom: 12px;
+    }
+    .price { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Produk</h2>
+    <div class="list">
+      <article class="card"><div class="thumb"></div><h3>Produk A</h3><p class="price">Rp 25.000</p></article>
+      <article class="card"><div class="thumb"></div><h3>Produk B</h3><p class="price">Rp 35.000</p></article>
+      <article class="card"><div class="thumb"></div><h3>Produk C</h3><p class="price">Rp 45.000</p></article>
+      <article class="card"><div class="thumb"></div><h3>Produk D</h3><p class="price">Rp 55.000</p></article>
+      <article class="card"><div class="thumb"></div><h3>Produk E</h3><p class="price">Rp 65.000</p></article>
+    </div>
+  </div>
+</body>
+</html>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

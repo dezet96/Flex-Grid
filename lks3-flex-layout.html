@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LKS 3 - Flex Layout Halaman</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="lks3">
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">LKS 3 — Flex Layout Halaman</div>
+      <div class="nav">
+        <a href="index.html">← Beranda</a>
+        <a href="lks1-flex-navbar.html">LKS 1</a>
+        <a href="lks2-flex-wrap.html">LKS 2</a>
+        <a class="active" href="lks3-flex-layout.html">LKS 3</a>
+        <a href="lks4-grid-gallery.html">LKS 4</a>
+        <a href="lks5-grid-dashboard.html">LKS 5</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Flex: Layout Halaman + Sidebar Responsive</h1>
+    <p>Tujuan: memahami peran <code>flex: 1</code> pada layout full tinggi, dan efek breakpoint media query.</p>
+
+    <div class="panel">
+      <h2>Editor & Preview</h2>
+      <div class="editor-wrap">
+        <div>
+          <textarea id="editor" class="code" spellcheck="false"></textarea>
+          <div class="actions">
+            <button id="btnRun" class="primary">Run</button>
+            <button id="btnReset">Reset Kode</button>
+            <button id="btnCopy">Copy Kode</button>
+          </div>
+        </div>
+        <div>
+          <iframe id="preview" class="preview"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Eksperimen</h2>
+      <ol>
+        <li>
+          <b>Ubah lebar sidebar</b><br>
+          Lokasi: rule <code>aside { ... }</code><br>
+          Ubah <code>width: 240px;</code> menjadi <code>180px</code> lalu <code>320px</code>.
+        </li>
+        <li>
+          <b>Uji fungsi <code>flex: 1</code> pada <code>.main</code></b><br>
+          Lokasi: rule <code>.main { ... }</code><br>
+          Hapus baris <code>flex: 1;</code> lalu amati posisi footer.
+        </li>
+        <li>
+          <b>Ubah breakpoint responsive</b><br>
+          Lokasi: bagian <code>@media (max-width: 700px) { ... }</code><br>
+          Ubah <code>700px</code> jadi <code>900px</code>, lalu kecilkan layar.
+        </li>
+      </ol>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Tabel Pengamatan</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="width:130px;">Eksperimen</th>
+            <th>Perubahan</th>
+            <th>Hasil yang terlihat</th>
+            <th>Kesimpulan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1</b></td>
+            <td><input class="answer" data-save="e1_change" /></td>
+            <td><textarea class="answer" data-save="e1_result"></textarea></td>
+            <td><textarea class="answer" data-save="e1_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>2</b></td>
+            <td><input class="answer" data-save="e2_change" /></td>
+            <td><textarea class="answer" data-save="e2_result"></textarea></td>
+            <td><textarea class="answer" data-save="e2_conclusion"></textarea></td>
+          </tr>
+          <tr>
+            <td><b>3</b></td>
+            <td><input class="answer" data-save="e3_change" /></td>
+            <td><textarea class="answer" data-save="e3_result"></textarea></td>
+            <td><textarea class="answer" data-save="e3_conclusion"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel" style="margin-top:14px;">
+      <h2>Pertanyaan Konsep</h2>
+      <p>1) Fungsi <code>flex: 1</code> pada <code>.main</code> itu apa?</p>
+      <textarea class="answer" data-save="q1"></textarea>
+
+      <p>2) Media query membantu menyelesaikan masalah apa?</p>
+      <textarea class="answer" data-save="q2"></textarea>
+
+      <div class="actions">
+        <button id="btnResetAnswers" class="danger">Reset Jawaban (halaman ini)</button>
+      </div>
+    </div>
+
+    <template id="starter">
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flex Page Layout</title>
+  <style>
+    body { margin: 0; font-family: system-ui, Arial; }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header, footer {
+      padding: 12px 16px;
+      background: #111827;
+      color: white;
+    }
+    .main {
+      display: flex;
+      flex: 1;
+    }
+    aside {
+      width: 240px;
+      padding: 16px;
+      border-right: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+    section {
+      flex: 1;
+      padding: 16px;
+    }
+    .box {
+      height: 120px;
+      border-radius: 12px;
+      background: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .main { flex-direction: column; }
+      aside { width: auto; border-right: none; border-bottom: 1px solid #e5e7eb; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>Header</header>
+
+    <div class="main">
+      <aside>
+        <b>Menu</b>
+        <ul>
+          <li>Dashboard</li>
+          <li>Materi</li>
+          <li>Tugas</li>
+        </ul>
+      </aside>
+
+      <section>
+        <h2>Konten</h2>
+        <div class="box"></div>
+        <div class="box"></div>
+      </section>
+    </div>
+
+    <footer>Footer</footer>
+  </div>
+</body>
+</html>
+    </template>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
